@@ -1,0 +1,30 @@
+#!/bin/bash
+echo $(java -version)
+#Removing Java version 1.7.0 (By default Amazon linux will have java version 1.7.0)
+yum remove java-1.7.0* -y
+echo $(java -version)
+#Installing openjdk version "1.8.0_242"
+yum install java-1.8* -y
+#find jvm existis
+find /usr/lib/jvm/java-1.8* | head -n 3
+#To set the home path of our JAVA
+cd ~
+vi .bash_profile
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.50.amzn1.x86_64
+PATH=$PATH:$HOME/bin:$JAVA_HOME
+#Check
+exit 
+sudo su -
+echo $JAVA_HOME
+/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.50.amzn1.x86_64
+
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io.key
+
+yum install jenkins -y
